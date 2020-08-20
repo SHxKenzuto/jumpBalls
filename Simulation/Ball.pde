@@ -66,7 +66,7 @@ class Ball
   
   //Methods
   
-  //Sets the new speed of the ball (used when it's genome is changed)
+  //Sets the new speed of the ball (used when its genome is changed)
   void set_vel()
   {
      float velx, vely = 0;
