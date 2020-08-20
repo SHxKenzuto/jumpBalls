@@ -67,7 +67,7 @@ class Population
     return result;
   }
   
-  //Selects a breeder for reproduction (in this case asexual because thei are simple creatures like bacterias)
+  //Selects a breeder for reproduction (in this case asexually because they are simple creatures like bacterias)
   Ball breeder_selection()
   {
     Ball p;
