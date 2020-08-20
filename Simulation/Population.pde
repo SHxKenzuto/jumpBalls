@@ -6,11 +6,13 @@ class Population
   float start_point;                   //starting point for all the balls (it's used to set the "original_pos" variable inside a Ball object)
   boolean fixed_start_point;           //If it's set to true, all the generations of balls will have the same starting point of the first one
   PVector target;                      //Target position (used to set the same variable inside a Ball object)
+  int genome_size;
   
   //Constructors
   
   Population()
   {
+    genome_size = 2;
     fixed_start_point = false;
     start_point = random(width/2-200);
     target = new PVector((width/2)+500,height-5);
@@ -18,12 +20,13 @@ class Population
     time = new Time();
     for(int i = 0;i < 1000; i++)
     {
-      pop.add(new Ball(time,start_point,target));
+      pop.add(new Ball(time,start_point,target,genome_size));
     }
   }
   
-  Population(int pop_size, boolean f, float x)     //size of population, starting point fixed or not, starting point for the first gen
+  Population(int pop_size, boolean f, float x, int n)     //size of population, starting point fixed or not, starting point for the first gen
   {
+    genome_size = n;
     fixed_start_point = f;
     start_point = random(width/2-200);
     target = new PVector(x,height-5);
@@ -31,7 +34,7 @@ class Population
     pop = new ArrayList<Ball>();
     for(int i = 0;i < pop_size; i++)
     {
-      pop.add(new Ball(time,start_point,target));
+      pop.add(new Ball(time,start_point,target,genome_size));
     }
   }
   
@@ -67,7 +70,7 @@ class Population
     return result;
   }
   
-  //Selects a breeder for reproduction (in this case asexually because they are simple creatures like bacterias)
+  //Selects a breeder for reproduction
   Ball breeder_selection()
   {
     Ball p;
@@ -79,15 +82,25 @@ class Population
       sum += pop.get(i).fitness;                   //in this way the balls with higher fitness are more likely to be selected
       i++;
     }
-    p = new Ball(pop.get(i-1).gen, time,start_point, target);
+    p = new Ball(pop.get(i-1).gen, time,start_point, target, genome_size);
     return p;
+  }
+  
+  //Takes two breeders and creates a ball child
+  Ball breeding()
+  {
+    Ball p1, p2;
+    p1 = breeder_selection();
+    p2 = breeder_selection();
+    p1.gen.crossover(p2.gen);
+    return p1;
   }
   
   //Selects the ball with the best fitness of the previous generation
   Ball best_fit()
   {
     int best_index = 0;
-    Ball best_ball = new Ball(pop.get(0).gen,time,start_point, target);
+    Ball best_ball = new Ball(pop.get(0).gen,time,start_point, target, genome_size);
     float best_fit = -1000;
     for(int i = 0;i<pop.size();i++)
     {
@@ -95,7 +108,7 @@ class Population
       if(pop.get(i).fitness>best_fit)
       {
         best_fit = pop.get(i).fitness;
-        best_ball = new Ball(pop.get(i).gen,time,start_point, target);
+        best_ball = new Ball(pop.get(i).gen,time,start_point, target, genome_size);
         best_index = i;
       }
         
@@ -117,10 +130,15 @@ class Population
       start_point = random(width/2-200);                //new starting position for next generation if the flag is set true
     }
     new_pop.add(best_fit());                            //The best ball of the previous generation is cloned
-    println("NEW POP BEST: "+new_pop.get(0).gen.j+" "+new_pop.get(0).gen.k+" "+new_pop.get(0).gen.l+" "+new_pop.get(0).gen.m);
+    print("NEW POP BEST: ");
+    for(int i = 0; i< new_pop.get(0).gen.gene_number;i++)
+    {
+      print(+new_pop.get(0).gen.g[i]+" ");
+    }
+    print("\n");
     for(int i = 1; i<pop.size();i++)
     {
-      new_pop.add(breeder_selection());                  //Other balls are added using the breeder_selection function
+      new_pop.add(breeding());                           //Other balls are added using the breeder_selection function
       is_mutated = new_pop.get(i).gen.mutate();          //Each ball has a 4% chance of being mutated
       if(is_mutated)
       {                                                  

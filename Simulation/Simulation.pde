@@ -6,7 +6,7 @@ void setup()
   size(1080,720);
   frameRate(120);
   background(255);
-  pop = new Population(1000,true, width/2+500);
+  pop = new Population(1000,true, width/2+500,2);
 }
 
 void draw()
