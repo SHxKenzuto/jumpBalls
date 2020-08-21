@@ -42,7 +42,7 @@ class Genome
   
   //Methods
   
-  //4% chance of genome mutation
+  //gene_number% chance of genome mutation
   //In case of mutation returns true
   boolean mutate()
   {
@@ -51,7 +51,7 @@ class Genome
     float val = random(1);
     while(i<gene_number && !flag)
     {
-      if(val > (i*0.1) && val<=(i*0.1)+0.1)
+      if(val > (i*0.01) && val<=(i*0.01)+0.01)
       {
         g[i] = random(-0.1,0.1);
         flag = true;
