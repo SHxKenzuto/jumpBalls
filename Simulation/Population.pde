@@ -24,7 +24,7 @@ class Population
     }
   }
   
-  Population(int pop_size, boolean f, float x, int n)     //size of population, starting point fixed or not, starting point for the first gen
+  Population(int pop_size, boolean f, float x, int n)     //size of population, starting point fixed or not, starting point for the first gen, number of genes
   {
     genome_size = n;
     fixed_start_point = f;
