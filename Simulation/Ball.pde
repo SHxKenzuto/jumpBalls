@@ -1,4 +1,4 @@
-//Class that describe a single ball
+//Class that describes a single ball
 class Ball
 {
   PVector vel;
