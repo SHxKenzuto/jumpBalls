@@ -139,7 +139,7 @@ class Population
     for(int i = 1; i<pop.size();i++)
     {
       new_pop.add(breeding());                           //Other balls are added using the breeder_selection function
-      is_mutated = new_pop.get(i).gen.mutate();          //Each ball has a 4% chance of being mutated
+      is_mutated = new_pop.get(i).gen.mutate();          //Each ball has a fixed chance of being mutated
       if(is_mutated)
       {                                                  
         new_pop.get(i).set_vel();                         //If a mutation occurred we have to set the speed again
