@@ -138,7 +138,7 @@ class Population
     print("\n");
     for(int i = 1; i<pop.size();i++)
     {
-      new_pop.add(breeding());                           //Other balls are added using the breeder_selection function
+      new_pop.add(breeding());                           //Other balls are added using the breeding function
       is_mutated = new_pop.get(i).gen.mutate();          //Each ball has a fixed chance of being mutated
       if(is_mutated)
       {                                                  
