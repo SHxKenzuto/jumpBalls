@@ -41,7 +41,7 @@ class Population
   //Methods
   
   
-  //Returns the sum of all the fitnesses of the balls
+  //Returns the sum of all the fitness values of the balls
   float fitness_sum()
   {
     float counter = 0;
@@ -76,7 +76,7 @@ class Population
     Ball p;
     float sum = 0;
     int i = 0;
-    float random_treshold = random(fitness_sum()); //A value between 0 and the sum of al fitnesses
+    float random_treshold = random(fitness_sum()); //A value between 0 and the sum of all the fitness values
     while(i<pop.size() && sum<random_treshold )    //while there is still pop fitness to sum and the sum is less than the treshold, keep adding
     {                                              //the ball whose fitness excedes the treshold is selected as breeder
       sum += pop.get(i).fitness;                   //in this way the balls with higher fitness are more likely to be selected
